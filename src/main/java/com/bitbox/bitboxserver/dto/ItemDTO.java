@@ -21,7 +21,7 @@ public class ItemDTO implements Serializable {
     private Long idItem;
     private Integer itemCode;
     private String description;
-    private BigDecimal price;
+    private Double price;
     private StateItemEnum state;
     private Set<SupplierDTO> suppliers;
     private List<DiscountDTO> discounts;

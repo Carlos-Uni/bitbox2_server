@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface ItemDAO extends CrudRepository<Item, Long> {
 
     public Item findByItemCode(int code);
-
+    void deleteByItemCode(int code);
 }

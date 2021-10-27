@@ -18,12 +18,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional
 public class ItemService implements IItemService{
 
     @Autowired
@@ -58,8 +60,7 @@ public class ItemService implements IItemService{
 
     @Override
     public void deleteItem(int code) {
-        Item item = itemDAO.findByItemCode(code);
-        itemDAO.delete(item);
+        itemDAO.deleteByItemCode(code);
     }
 
     @Override
@@ -68,6 +69,7 @@ public class ItemService implements IItemService{
         Set<Supplier> suppliers = new HashSet<>();
         Set<Discount> discounts = new HashSet<>();
 
+        item.setItemCode(itemDTO.getItemCode());
         item.setDescription(itemDTO.getDescription());
         item.setPrice(itemDTO.getPrice());
         item.setState(itemDTO.getState());

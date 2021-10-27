@@ -1,48 +1,46 @@
 package com.bitbox.bitboxserver.controller;
 
 import com.bitbox.bitboxserver.dto.ItemDTO;
-import com.bitbox.bitboxserver.service.IItemService;
+import com.bitbox.bitboxserver.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/item")
 public class ItemController {
 
     @Autowired
-    IItemService iItemService;
+    ItemService itemService;
 
     @GetMapping("/itemList")
-    public Iterable<ItemDTO> getItems(){
-        return iItemService.findAllItems();
+    public List<ItemDTO> getItems(){
+        return itemService.findAllItems();
     }
 
     @GetMapping("/search/{code}")
     public ItemDTO getItemByItemCode(@PathVariable(value = "code") int code){
-        return iItemService.findByItemCode(code);
+        return itemService.findByItemCode(code);
     }
 
-    @PostMapping(name = "/create", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ItemDTO> createItem(@RequestBody ItemDTO itemDTO){
-        iItemService.createItem(itemDTO);
-        return ResponseEntity.created(null).build();
+    public void createItem(@RequestBody ItemDTO itemDTO){
+        itemService.createItem(itemDTO);
     }
 
     @PutMapping("/update/{code}")
-    public ResponseEntity<?> updateItem(@PathVariable(value = "code") int code,
+    public ResponseEntity<ItemDTO> updateItem(@PathVariable(value = "code") int code,
                                               @RequestBody ItemDTO itemDTO) {
-        iItemService.updateItem(itemDTO.getItemCode(), itemDTO);
-        return new ResponseEntity(HttpStatus.OK);
+        return itemService.updateItem(code, itemDTO);
     }
 
     @DeleteMapping("/delete/{code}")
-    public ResponseEntity<?> deleteEmployee(@PathVariable(value = "code") int code) {
-        iItemService.deleteItem(code);
-        return new ResponseEntity(HttpStatus.OK);
+    public void deleteEmployee(@PathVariable(value = "code") int code) {
+        itemService.deleteItem(code);
     }
 }
