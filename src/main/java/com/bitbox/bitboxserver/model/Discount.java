@@ -23,8 +23,6 @@ public class Discount implements Serializable {
     @Column(name = "iddiscount")
     private Long idDiscount;
 
-    @SequenceGenerator(name = "sequence_code", sequenceName = "DB_SEQUENCE", initialValue = 100, allocationSize = 100)
-    @GeneratedValue(generator = "sequence_code")
     @Column(name = "discountcode", unique = true)
     private Integer discountCode;
 

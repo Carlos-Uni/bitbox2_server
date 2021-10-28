@@ -19,7 +19,7 @@ public class DiscountService implements IDiscountService {
     private DiscountAssembler discountAssembler = new DiscountAssembler();
 
     @Override
-    public Iterable<DiscountDTO> findAllDiscounts() {
+    public List<DiscountDTO> findAllDiscounts() {
         List<DiscountDTO> discountDTO = new ArrayList<>();
         for (Discount discount : discountDAO.findAll()) {
             discountDTO.add(discountAssembler.pojo2dto(discount));

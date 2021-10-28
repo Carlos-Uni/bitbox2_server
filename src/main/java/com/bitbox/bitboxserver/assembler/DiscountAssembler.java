@@ -11,10 +11,12 @@ public class DiscountAssembler {
     private final ModelMapper modelMapper = new ModelMapper();
 
     public DiscountDTO pojo2dto(Discount pojo) {
+
         return modelMapper.map(pojo, DiscountDTO.class);
     }
 
     public Discount dto2pojo(DiscountDTO dto) {
+
         return modelMapper.map(dto, Discount.class);
     }
 }

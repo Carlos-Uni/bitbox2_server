@@ -1,6 +1,5 @@
 package com.bitbox.bitboxserver.model;
 
-import com.bitbox.bitboxserver.dto.ItemDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +23,6 @@ public class User implements Serializable {
     @Column(name = "iduser")
     private Long idUser;
 
-    @SequenceGenerator(name = "sequence_code", sequenceName = "DB_SEQUENCE", initialValue = 100, allocationSize = 100)
-    @GeneratedValue(generator = "sequence_code")
     @Column(name = "usercode", unique = true)
     private Integer userCode;
 
@@ -47,7 +44,7 @@ public class User implements Serializable {
     @Column(name = "role")
     private String role;
 
-    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = Item.class, mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Item> items;
 
     public void addItem(Item item){

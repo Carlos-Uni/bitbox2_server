@@ -22,8 +22,6 @@ public class Supplier implements Serializable {
     @Column(name = "idsupplier")
     private Long idSupplier;
 
-    @SequenceGenerator(name = "sequence_code", sequenceName = "DB_SEQUENCE", initialValue = 100, allocationSize = 100)
-    @GeneratedValue(generator = "sequence_code")
     @Column(name = "suppliercode", unique = true)
     private Integer supplierCode;
 

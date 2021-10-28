@@ -14,7 +14,6 @@ import com.bitbox.bitboxserver.model.Item;
 import com.bitbox.bitboxserver.model.Supplier;
 import com.bitbox.bitboxserver.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -50,11 +49,13 @@ public class ItemService implements IItemService{
 
     @Override
     public ItemDTO findByItemCode(int code) {
+
         return itemAssembler.pojo2dto(itemDAO.findByItemCode(code));
     }
 
     @Override
     public void createItem(ItemDTO itemDTO) {
+
         itemDAO.save(itemAssembler.dto2pojo(itemDTO));
     }
 

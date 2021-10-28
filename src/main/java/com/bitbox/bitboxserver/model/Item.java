@@ -26,8 +26,8 @@ public class Item implements Serializable {
     @Column(name = "iditem")
     private Long idItem;
 
-//    @SequenceGenerator(name = "sequence_code", sequenceName = "DB_SEQUENCE", initialValue = 100, allocationSize = 100)
-//    @GeneratedValue(generator = "sequence_code")
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_id_seq")
+//    @SequenceGenerator(name = "item_id_seq",sequenceName = "item_id_seq", initialValue = 100, allocationSize = 1)
     @Column(name = "itemcode", unique = true)
     private Integer itemCode;
 
@@ -52,8 +52,8 @@ public class Item implements Serializable {
     @Column(name = "creationdate")
     private Date creationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
-    @JoinColumn(name="user_id")
+    @ManyToOne()
+    @JoinColumn(name="user_id", referencedColumnName = "iduser")
     private User creator;
 
     @Column(name = "discontinuedreason")

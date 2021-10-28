@@ -19,7 +19,7 @@ public class SupplierService implements ISupplierService{
     private SupplierAssembler supplierAssembler = new SupplierAssembler();
 
     @Override
-    public List<SupplierDTO> findllSuppliers() {
+    public List<SupplierDTO> findAllSuppliers() {
         List<SupplierDTO> supplierDTO = new ArrayList<>();
         for (Supplier supplier : supplierDAO.findAll()) {
             supplierDTO.add(supplierAssembler.pojo2dto(supplier));

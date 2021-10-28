@@ -7,9 +7,9 @@ DROP TABLE IF EXISTS itemdiscount;
 
 CREATE TABLE user (
 	iduser	INT AUTO_INCREMENT,
-	usercode INT AUTO_INCREMENT,
+	usercode INT NOT NULL UNIQUE,
 	username VARCHAR(20) NOT NULL,
-	password VARCHAR(15) NOT NULL,
+	password VARCHAR NOT NULL,
 	name VARCHAR(20) NOT NULL,
 	lastname VARCHAR(20) NOT NULL,
 	email VARCHAR NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE user (
 
 CREATE TABLE item (
 	iditem	INT AUTO_INCREMENT,
-	itemcode INT AUTO_INCREMENT,
+	itemcode INT NOT NULL UNIQUE,
 	description VARCHAR(50) NOT NULL,
 	price DOUBLE,
 	state VARCHAR,
@@ -31,7 +31,7 @@ CREATE TABLE item (
 
 CREATE TABLE supplier (
 	idsupplier	INT AUTO_INCREMENT,
-	suppliercode INT AUTO_INCREMENT,
+	suppliercode INT NOT NULL UNIQUE,
 	name VARCHAR(25) NOT NULL,
 	country VARCHAR(25),
 	PRIMARY KEY(idsupplier)
@@ -39,7 +39,7 @@ CREATE TABLE supplier (
 
 CREATE TABLE discount (
 	iddiscount	INT AUTO_INCREMENT,
-	discountcode INT AUTO_INCREMENT,
+	discountcode INT NOT NULL UNIQUE,
 	reducedprice INT NOT NULL,
 	startdate DATE NOT NULL,
 	enddate DATE NOT NULL,
