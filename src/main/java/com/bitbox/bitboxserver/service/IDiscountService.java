@@ -5,5 +5,5 @@ import com.bitbox.bitboxserver.dto.DiscountDTO;
 public interface IDiscountService {
 
     public Iterable<DiscountDTO> findAllDiscounts();
-    public DiscountDTO findByDiscountCode(int code);
+    public DiscountDTO findByDiscountCode(Long code);
 }

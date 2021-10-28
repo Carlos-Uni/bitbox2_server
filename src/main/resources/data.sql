@@ -1,21 +1,10 @@
-INSERT INTO user(username, password, name, lastname, email, role) VALUES('Anaadmin','654321','Ana','Marrero','ana_admin@hotmail.com','admin');
-INSERT INTO user(username, password, name, lastname, email, role) VALUES('Juanuser','123456','Juan','Acosta','juan_user@gmail.com','user');
-INSERT INTO user(username, password, name, lastname, email, role) VALUES('Franuser','123654','Fran','Benitez','fran_user@gmail.com','user');
+insert into users(iduser, usercode, username, password, role) values(nextval('user_id_seq'),122, 'jaunadmin', 'admin', 'ADMIN');
+insert into users(iduser, usercode, username, password, role) values(nextval('user_id_seq'),200, 'anauser', 'user', 'USER');
 
-INSERT INTO item(description, price, state, creationdate, user_id) VALUES('The product is a mouse',63.5,'ACTIVE','2015-05-10', 1);
-INSERT INTO item(description, price, state, creationdate, user_id) VALUES('The product is a bag',58.9,'ACTIVE','2020-09-06', 1);
-INSERT INTO item(description, price, state, creationdate, user_id) VALUES('The product is a PC',1500.15,'ACTIVE','2008-08-11', 2);
-INSERT INTO item(description, price, state, creationdate, user_id) VALUES('The product is a controller',55.1,'ACTIVE','2005-09-28', 1);
-INSERT INTO item(description, price, state, creationdate, user_id) VALUES('The product is a monitor',228.0,'ACTIVE','2000-10-19', 2);
-INSERT INTO item(description, price, state, creationdate, user_id) VALUES('The product is a headphone',119.2,'ACTIVE','2007-07-09', 1);
+insert into items(iditem, itemcode, price, state, description, user_id) values(nextval('item_id_seq'), 00008, 63.5, 'ACTIVE', 'The product is a mouse', currval('user_id_seq'));
+insert into items(iditem, itemcode, price, state, description, user_id) values(nextval('item_id_seq'), 05555, 58.9, 'ACTIVE', 'The product is a bag', currval('user_id_seq'));
 
-INSERT INTO supplier(name, country) VALUES('Robert', 'Italy');
-INSERT INTO supplier(name, country) VALUES('Amanda', 'Spain');
-INSERT INTO supplier(name, country) VALUES('Dimitri', 'Russian');
-INSERT INTO supplier(name, country) VALUES('Nuala', 'Nigeria');
-INSERT INTO supplier(name, country) VALUES('Kai', 'Japan');
-INSERT INTO supplier(name, country) VALUES('Ava-Mai', 'Indonesia');
+insert into discount(iddiscount, discountcode, reducedprice, startdate, enddate, item_id) values(nextval('discount_id_seq'), 86, 10.0, 2021-10-28', '2021-11-02', currval('item_id_seq'));
+insert into supplier(idsupplier, suppliercode, country, name) values(nextval('supplier_id_seq'),1,'Robert', 'Italy');
 
-INSERT INTO discount(reducedprice, startdate, enddate) VALUES(2,'2021-10-28', '2021-11-02');
-INSERT INTO discount(reducedprice, startdate, enddate) VALUES(5,'2021-10-29', '2021-11-05');
-INSERT INTO discount(reducedprice, startdate, enddate) VALUES(10,'2021-10-30', '2021-11-06');
+

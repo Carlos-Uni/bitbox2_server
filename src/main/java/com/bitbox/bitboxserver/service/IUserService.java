@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IUserService {
     public List<UserDTO> findAllUsers();
-    public UserDTO findByUserCode(int code);
+    public UserDTO findByUserCode(Long code);
     public void createUser(UserDTO userDTO);
-    public void deleteUser(int code);
+    public void deleteUser(Long code);
 }

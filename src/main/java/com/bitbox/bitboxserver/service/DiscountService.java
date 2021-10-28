@@ -7,10 +7,12 @@ import com.bitbox.bitboxserver.model.Discount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class DiscountService implements IDiscountService {
 
     @Autowired
@@ -28,7 +30,7 @@ public class DiscountService implements IDiscountService {
     }
 
     @Override
-    public DiscountDTO findByDiscountCode(int code) {
+    public DiscountDTO findByDiscountCode(Long code) {
         return discountAssembler.pojo2dto(discountDAO.findByDiscountCode(code));
     }
 }

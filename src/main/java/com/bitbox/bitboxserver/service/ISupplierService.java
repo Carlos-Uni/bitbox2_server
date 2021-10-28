@@ -7,5 +7,5 @@ import java.util.List;
 public interface ISupplierService {
 
     public List<SupplierDTO> findllSuppliers();
-    public SupplierDTO findBySupplierCode(int code);
+    public SupplierDTO findBySupplierCode(Long code);
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,25 +16,32 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "supplier")
-public class Supplier implements Serializable {
+public class Supplier{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "supplier_id_seq", sequenceName = "supplier_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "supplier_id_seq")
     @Column(name = "idsupplier")
     private Long idSupplier;
 
-    @SequenceGenerator(name = "sequence_code", sequenceName = "DB_SEQUENCE", initialValue = 100, allocationSize = 100)
-    @GeneratedValue(generator = "sequence_code")
-    @Column(name = "suppliercode", unique = true)
-    private Integer supplierCode;
+    @Column(name = "suppliercode", unique = true, nullable = false)
+    private Long supplierCode;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "country")
+    @Column(name = "country", nullable = false)
     private String country;
 
-    @ManyToMany(mappedBy = "suppliers", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "suppliers")
     private Set<Item> items;
+
+    public void addItem(Item item) {
+        if(items == null) {
+            items = new HashSet<>();
+        }
+        item.getSuppliers().add(this);
+        items.add(item);
+    }
 
 }

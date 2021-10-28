@@ -14,9 +14,10 @@ import com.bitbox.bitboxserver.model.Item;
 import com.bitbox.bitboxserver.model.Supplier;
 import com.bitbox.bitboxserver.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class ItemService implements IItemService{
     private SupplierAssembler supplierAssembler = new SupplierAssembler();
     private DiscountAssembler discountAssembler = new DiscountAssembler();
 
-    @Override
+
     public List<ItemDTO> findAllItems() {
         List<ItemDTO> itemDTO = new ArrayList<>();
         for (Item item : itemDAO.findAll()) {
@@ -48,23 +49,39 @@ public class ItemService implements IItemService{
         return itemDTO;
     }
 
-    @Override
-    public ItemDTO findByItemCode(int code) {
-        return itemAssembler.pojo2dto(itemDAO.findByItemCode(code));
+
+    public ItemDTO findByItemCode(Long code) {
+        ItemDTO itemDTO = new ItemDTO();
+        try {
+            itemAssembler.pojo2dto(itemDAO.findByItemCode(code));
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("The item '%s' does not exist", code));
+        }
+        return itemDTO;
     }
 
-    @Override
+
     public void createItem(ItemDTO itemDTO) {
+        if (itemDTO == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The item to save is missing.");
+        }
+
         itemDAO.save(itemAssembler.dto2pojo(itemDTO));
     }
 
-    @Override
-    public void deleteItem(int code) {
-        itemDAO.deleteByItemCode(code);
+
+    public void deleteItem(Long code) {
+        if (itemDAO.findByItemCode(code) != null) {
+            itemDAO.deleteByItemCode(code);
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("The item '%s' does not exist", code));
+        }
+
     }
 
-    @Override
-    public ResponseEntity<ItemDTO> updateItem(int code, ItemDTO itemDTO) {
+    public ResponseEntity<ItemDTO> updateItem(Long code, ItemDTO itemDTO) {
         Item item = itemDAO.findByItemCode(code);
         Set<Supplier> suppliers = new HashSet<>();
         Set<Discount> discounts = new HashSet<>();

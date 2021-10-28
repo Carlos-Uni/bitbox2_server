@@ -7,10 +7,12 @@ import com.bitbox.bitboxserver.model.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class SupplierService implements ISupplierService{
 
     @Autowired
@@ -28,7 +30,7 @@ public class SupplierService implements ISupplierService{
     }
 
     @Override
-    public SupplierDTO findBySupplierCode(int code) {
+    public SupplierDTO findBySupplierCode(Long code) {
         return supplierAssembler.pojo2dto(supplierDAO.findBySupplierCode(code));
     }
 }

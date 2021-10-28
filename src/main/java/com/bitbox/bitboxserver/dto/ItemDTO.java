@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -19,14 +18,33 @@ import java.util.Set;
 public class ItemDTO implements Serializable {
 
     private Long idItem;
-    private Integer itemCode;
+    private Long itemCode;
     private String description;
     private Double price;
     private StateItemEnum state;
     private Set<SupplierDTO> suppliers;
-    private List<DiscountDTO> discounts;
+    private Set<DiscountDTO> discounts;
     private Date creationDate;
     private UserDTO creator;
     private String discontinuedReason;
 
+    public void addSupplier(SupplierDTO supplierDTO) {
+        if(suppliers == null) {
+            suppliers = new HashSet<>();
+        }
+        supplierDTO.addItem(this);
+        suppliers.add(supplierDTO);
+    }
+
+    public void addPriceReduction(DiscountDTO discountDTO) {
+        if(discounts == null) {
+            discounts = new HashSet<>();
+        }
+        discountDTO.addItem(this);
+        discounts.add(discountDTO);
+    }
+
+    public void addDeactivationReason(String reason) {
+        discontinuedReason = reason;
+    }
 }
