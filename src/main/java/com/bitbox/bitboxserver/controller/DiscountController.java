@@ -23,7 +23,7 @@ public class DiscountController {
     }
 
     @GetMapping("/discount/search({code}")
-    public DiscountDTO getSupplierBySupplierCode(@PathVariable(value = "code") int code) {
+    public DiscountDTO getSupplierByDiscountCode(@PathVariable(value = "code") int code) {
         return discountService.findByDiscountCode(code);
     }
 }
