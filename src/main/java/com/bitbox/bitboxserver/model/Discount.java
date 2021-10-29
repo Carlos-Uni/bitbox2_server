@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,26 +16,34 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "discount")
-public class Discount implements Serializable {
+public class Discount{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "discount_id_seq", sequenceName = "discount_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "discount_id_seq")
     @Column(name = "iddiscount")
     private Long idDiscount;
 
-    @Column(name = "discountcode", unique = true)
-    private Integer discountCode;
+    @Column(name = "discountcode", unique = true, nullable = false)
+    private Long discountCode;
 
-    @Column(name = "reducedprice")
-    private Integer reducedPrice;
+    @Column(name = "reducedprice", nullable = false)
+    private Double reducedPrice;
 
-    @Column(name = "startdate")
+    @Column(name = "startdate", nullable = false)
     private Date startDate;
 
-    @Column(name = "enddate")
+    @Column(name = "enddate", nullable = false)
     private Date endDate;
 
-    @ManyToMany(mappedBy = "discounts", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "discounts")
     private Set<Item> items;
 
+    public void addItem(Item item) {
+        if(items == null) {
+            items = new HashSet<>();
+        }
+        item.getDiscounts().add(this);
+        items.add(item);
+    }
 }

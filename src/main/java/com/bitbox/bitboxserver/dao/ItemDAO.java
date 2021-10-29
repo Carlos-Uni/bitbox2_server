@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemDAO extends CrudRepository<Item, Long> {
 
-    public Item findByItemCode(int code);
-    public void deleteByItemCode(int code);
+    public Item findByItemCode(Long code);
+    public void deleteByItemCode(Long code);
 }

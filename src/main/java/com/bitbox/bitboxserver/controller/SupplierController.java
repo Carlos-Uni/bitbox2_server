@@ -19,11 +19,12 @@ public class SupplierController {
 
     @GetMapping("/supplier/supplierList")
     public List<SupplierDTO> getSuppliers() {
+
         return supplierService.findAllSuppliers();
     }
 
     @GetMapping("/supplier/search({code}")
-    public SupplierDTO getSupplierBySupplierCode(@PathVariable(value = "code") int code) {
+    public SupplierDTO getSupplierBySupplierCode(@PathVariable(value = "code") Long code) {
         return supplierService.findBySupplierCode(code);
     }
 }

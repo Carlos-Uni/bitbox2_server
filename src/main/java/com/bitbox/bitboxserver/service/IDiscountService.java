@@ -7,5 +7,5 @@ import java.util.List;
 public interface IDiscountService {
 
     public List<DiscountDTO> findAllDiscounts();
-    public DiscountDTO findByDiscountCode(int code);
+    public DiscountDTO findByDiscountCode(Long code);
 }

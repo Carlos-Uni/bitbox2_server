@@ -1,5 +1,6 @@
 package com.bitbox.bitboxserver.dto;
 
+import com.bitbox.bitboxserver.globaldata.UserRoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +17,17 @@ import java.util.Set;
 public class UserDTO implements Serializable {
 
     private Long idUser;
-    private Integer userCode;
+    private Long userCode;
     private String userName;
     private String password;
-    private String name;
-    private String lastName;
-    private String email;
-    private String role;
+    private UserRoleEnum role;
     private Set<ItemDTO> items;
+
+    public void addItem(ItemDTO itemDTO){
+        if (items == null) {
+            items = new HashSet<>();
+        }
+        itemDTO.setCreator(this);
+        items.add(itemDTO);
+    }
 }

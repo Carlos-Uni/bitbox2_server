@@ -22,8 +22,9 @@ public class UserController {
     }
 
     @GetMapping("/user/search/{code}")
-    public UserDTO getUserByUserCode(@PathVariable(value = "code") int code){
-        return userService.findByUserCode(code);
+    public UserDTO getUserByUserCode(@PathVariable(value = "code") Long code){
+        UserDTO userDTO = userService.findByUserCode(code);
+        return userDTO;
     }
 
     @PostMapping(value = "/user/create", consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -33,13 +34,14 @@ public class UserController {
     }
 
     @PutMapping("/user/update/{code}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable(value = "code") int code,
+    public ResponseEntity<UserDTO> updateUser(@PathVariable(value = "code") Long code,
                                               @RequestBody UserDTO userDTO) {
         return userService.updateUser(code, userDTO);
     }
 
     @DeleteMapping("/user/delete/{code}")
-    public void deleteUser(@PathVariable(value = "code") int code) {
+    public void deleteUser(@PathVariable(value = "code") Long code) {
+
         userService.deleteUser(code);
     }
 }

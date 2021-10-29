@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DiscountDAO extends CrudRepository<Discount, Long> {
 
-    public Discount findByDiscountCode(int code);
+    public Discount findByDiscountCode(Long code);
 }

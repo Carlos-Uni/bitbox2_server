@@ -1,12 +1,12 @@
 package com.bitbox.bitboxserver.model;
 
+import com.bitbox.bitboxserver.globaldata.UserRoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,36 +15,29 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user")
-public class User implements Serializable {
+@Table(name = "users")
+public class User{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
     @Column(name = "iduser")
     private Long idUser;
 
-    @Column(name = "usercode", unique = true)
-    private Integer userCode;
+    @Column(name = "usercode", unique = true, nullable = false)
+    private Long userCode;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String userName;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "name")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", columnDefinition = "varchar default 'USER'")
+    private UserRoleEnum role;
 
-    @Column(name = "lastname")
-    private String lastName;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "role")
-    private String role;
-
-    @OneToMany(targetEntity = Item.class, mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Item> items;
 
     public void addItem(Item item){

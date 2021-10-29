@@ -1,7 +1,7 @@
 package com.bitbox.bitboxserver.controller;
 
 import com.bitbox.bitboxserver.dto.ItemDTO;
-import com.bitbox.bitboxserver.service.ItemService;
+import com.bitbox.bitboxserver.service.IItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    ItemService itemService;
+    IItemService itemService;
 
     @GetMapping("/item/itemList")
     public List<ItemDTO> getItems(){
@@ -22,7 +22,7 @@ public class ItemController {
     }
 
     @GetMapping("/item/search/{code}")
-    public ItemDTO getItemByItemCode(@PathVariable(value = "code") int code){
+    public ItemDTO getItemByItemCode(@PathVariable(value = "code") Long code){
         return itemService.findByItemCode(code);
     }
 
@@ -33,13 +33,13 @@ public class ItemController {
     }
 
     @PutMapping("/item/update/{code}")
-    public ResponseEntity<ItemDTO> updateItem(@PathVariable(value = "code") int code,
+    public ResponseEntity<ItemDTO> updateItem(@PathVariable(value = "code") Long code,
                                               @RequestBody ItemDTO itemDTO) {
         return itemService.updateItem(code, itemDTO);
     }
 
-    @DeleteMapping("/item/delete/{code}")
-    public void deleteItem(@PathVariable(value = "code") int code) {
+    @DeleteMapping(value = "/item/delete/{code}")
+    public void deleteItem(@PathVariable(value = "code") Long code) {
         itemService.deleteItem(code);
     }
 }
