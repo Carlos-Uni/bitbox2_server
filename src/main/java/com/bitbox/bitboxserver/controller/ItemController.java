@@ -22,7 +22,7 @@ public class ItemController {
     }
 
     @GetMapping("/item/search/{code}")
-    public ItemDTO getItemByItemCode(@PathVariable(value = "code") Long code){
+    public ItemDTO getItemByItemCode(@PathVariable(value = "code") Long code) {
         return itemService.findByItemCode(code);
     }
 

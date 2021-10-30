@@ -54,7 +54,7 @@ public class Item {
     @Column(name = "creationdate")
     private Date creationDate;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
     private User creator;
 

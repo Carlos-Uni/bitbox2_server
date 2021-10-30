@@ -20,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -51,9 +48,9 @@ public class ItemService implements IItemService{
 
 
     public ItemDTO findByItemCode(Long code) {
-        Item item = itemDAO.findByItemCode(code);
-        if (item != null) {
-            return itemAssembler.pojo2dto(item);
+        Optional<Item> item = itemDAO.findByItemCode(code);
+        if (item.isPresent()) {
+            return itemAssembler.pojo2dto(item.get());
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("The item '%s' does not exist", code));
@@ -71,8 +68,8 @@ public class ItemService implements IItemService{
 
 
     public void deleteItem(Long code) {
-        Item item = itemDAO.findByItemCode(code);
-        if (item != null) {
+        Optional<Item> item = itemDAO.findByItemCode(code);
+        if (item.isPresent()) {
             itemDAO.deleteByItemCode(code);
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -82,32 +79,37 @@ public class ItemService implements IItemService{
     }
 
     public ResponseEntity<ItemDTO> updateItem(Long code, ItemDTO itemDTO) {
-        Item item = itemDAO.findByItemCode(code);
-        Set<Supplier> suppliers = new HashSet<>();
-        Set<Discount> discounts = new HashSet<>();
+        if (itemDAO.findByItemCode(code).isPresent()) {
+            Item item = itemDAO.findByItemCode(code).get();
+            Set<Supplier> suppliers = new HashSet<>();
+            Set<Discount> discounts = new HashSet<>();
 
-        item.setItemCode(itemDTO.getItemCode());
-        item.setDescription(itemDTO.getDescription());
-        item.setPrice(itemDTO.getPrice());
-        item.setState(itemDTO.getState());
-        item.setCreationDate(itemDTO.getCreationDate());
+            item.setItemCode(itemDTO.getItemCode());
+            item.setDescription(itemDTO.getDescription());
+            item.setPrice(itemDTO.getPrice());
+            item.setState(itemDTO.getState());
+            item.setCreationDate(itemDTO.getCreationDate());
 
-        for (SupplierDTO supplierDTO : itemDTO.getSuppliers()) {
-            suppliers.add(supplierAssembler.dto2pojo(supplierDTO));
+            for (SupplierDTO supplierDTO : itemDTO.getSuppliers()) {
+                suppliers.add(supplierAssembler.dto2pojo(supplierDTO));
+            }
+            item.setSuppliers(suppliers);
+            for (DiscountDTO discountDTO : itemDTO.getDiscounts()) {
+                discounts.add(discountAssembler.dto2pojo(discountDTO));
+            }
+            item.setDiscounts(discounts);
+
+            User user = userDAO.findByUserCode(itemDTO.getCreator().getUserCode());
+            if (!user.equals(userAssembler.dto2pojo(itemDTO.getCreator()))) {
+                user.addItem(item);
+            }
+
+            itemDAO.save(item);
+            return ResponseEntity.ok().body(itemAssembler.pojo2dto(item));
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("The item '%s' does not exist", code));
         }
-        item.setSuppliers(suppliers);
-        for (DiscountDTO discountDTO : itemDTO.getDiscounts()) {
-            discounts.add(discountAssembler.dto2pojo(discountDTO));
-        }
-        item.setDiscounts(discounts);
-
-        User user = userDAO.findByUserCode(itemDTO.getCreator().getUserCode());
-        if (!user.equals(userAssembler.dto2pojo(itemDTO.getCreator()))) {
-            user.addItem(item);
-        }
-
-        itemDAO.save(item);
-        return ResponseEntity.ok().body(itemAssembler.pojo2dto(item));
     }
 
 }
