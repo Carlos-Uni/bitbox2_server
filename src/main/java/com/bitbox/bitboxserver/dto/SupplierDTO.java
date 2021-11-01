@@ -17,7 +17,7 @@ import java.util.Set;
 public class SupplierDTO implements Serializable {
 
     private Long idSupplier;
-    private Integer discountCode;
+    private Integer supplierCode;
     private String name;
     private String country;
     private Set<ItemDTO> items;

@@ -7,9 +7,9 @@ insert into item(iditem, itemcode, price, state, creationdate, description, user
 insert into item(iditem, itemcode, price, state, creationdate, description, user_id) values(nextval('item_id_seq'), 96570, 185.9, 'ACTIVE', '2016-10-05', 'The product is a controller', currval('user_id_seq'));
 insert into item(iditem, itemcode, price, state, creationdate, description, user_id) values(nextval('item_id_seq'), 67852, 953.5, 'ACTIVE', '2011-02-26', 'The product is a monitor', currval('user_id_seq'));
 
-insert into supplier(idsupplier, suppliercode, country, name) values(nextval('supplier_id_seq'),1,'Robert', 'Italy');
-insert into supplier(idsupplier, suppliercode, country, name) values(nextval('supplier_id_seq'),2,'Amanda', 'Spain');
-insert into supplier(idsupplier, suppliercode, country, name) values(nextval('supplier_id_seq'),3,'Nuala', 'Nigeria');
+insert into supplier(idsupplier, suppliercode, name, country) values(nextval('supplier_id_seq'),1,'Robert', 'Italy');
+insert into supplier(idsupplier, suppliercode, name, country) values(nextval('supplier_id_seq'),2,'Amanda', 'Spain');
+insert into supplier(idsupplier, suppliercode, name, country) values(nextval('supplier_id_seq'),3,'Nuala', 'Nigeria');
 
 insert into discount(iddiscount, discountcode, reducedprice, startdate, enddate) values(nextval('discount_id_seq'), 85, 10.0, '2021-10-28', '2021-11-02');
 insert into discount(iddiscount, discountcode, reducedprice, startdate, enddate) values(nextval('discount_id_seq'), 52, 5.0, '2021-10-29', '2021-11-05');

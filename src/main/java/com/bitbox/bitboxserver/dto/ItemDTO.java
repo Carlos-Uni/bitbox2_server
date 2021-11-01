@@ -1,6 +1,7 @@
 package com.bitbox.bitboxserver.dto;
 
 import com.bitbox.bitboxserver.globaldata.StateItemEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class ItemDTO implements Serializable {
     private Set<SupplierDTO> suppliers;
     private Set<DiscountDTO> discounts;
     private Date creationDate;
-    @JsonManagedReference
+    @JsonBackReference
     private UserDTO creator;
     private String discontinuedReason;
 

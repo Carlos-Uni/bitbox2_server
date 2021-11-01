@@ -99,10 +99,10 @@ public class ItemService implements IItemService{
             }
             item.setDiscounts(discounts);
 
-            User user = userDAO.findByUserCode(itemDTO.getCreator().getUserCode());
+            /*User user = userDAO.findByUserCode(itemDTO.getCreator().getUserCode());
             if (!user.equals(userAssembler.dto2pojo(itemDTO.getCreator()))) {
                 user.addItem(item);
-            }
+            }*/
 
             itemDAO.save(item);
             return ResponseEntity.ok().body(itemAssembler.pojo2dto(item));

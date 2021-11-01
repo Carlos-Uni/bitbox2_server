@@ -2,6 +2,7 @@ package com.bitbox.bitboxserver.dto;
 
 import com.bitbox.bitboxserver.globaldata.UserRoleEnum;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class UserDTO implements Serializable {
     private String userName;
     private String password;
     private UserRoleEnum role;
-    @JsonBackReference
+    @JsonManagedReference
     private Set<ItemDTO> items;
 
     public void addItem(ItemDTO itemDTO){
