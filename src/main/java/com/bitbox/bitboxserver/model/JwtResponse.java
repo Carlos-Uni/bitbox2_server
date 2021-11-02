@@ -1,14 +1,20 @@
 package com.bitbox.bitboxserver.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
 
 @Getter
-@AllArgsConstructor
+@Setter
 public class JwtResponse implements Serializable {
-    private final String jwttoken;
+    private String jwttoken;
+    private String username;
+    private String type = "Bearer";
+
+
+    public JwtResponse(String jwttoken, String username){
+        this.jwttoken = jwttoken;
+        this.username = username;
+    }
 }

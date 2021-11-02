@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDAO extends CrudRepository<User, Long> {
     public User findByUserCode(Long code);
+    public User findByUsername(String name);
     public void deleteByUserCode(Long code);
 }
