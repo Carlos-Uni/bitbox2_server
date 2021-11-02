@@ -3,13 +3,11 @@ package com.bitbox.bitboxserver.controller;
 import com.bitbox.bitboxserver.dto.DiscountDTO;
 import com.bitbox.bitboxserver.service.IDiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class DiscountController {
@@ -23,7 +21,7 @@ public class DiscountController {
         return discountService.findAllDiscounts();
     }
 
-    @GetMapping("/discount/search({code}")
+    @GetMapping("/discount/search/{code}")
     public DiscountDTO getSupplierByDiscountCode(@PathVariable(value = "code") Long code) {
         return discountService.findByDiscountCode(code);
     }

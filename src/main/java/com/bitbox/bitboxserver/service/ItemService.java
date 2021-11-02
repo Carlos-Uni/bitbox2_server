@@ -89,6 +89,7 @@ public class ItemService implements IItemService{
             item.setPrice(itemDTO.getPrice());
             item.setState(itemDTO.getState());
             item.setCreationDate(itemDTO.getCreationDate());
+            item.setDiscontinuedReason(itemDTO.getDiscontinuedReason());
 
             for (SupplierDTO supplierDTO : itemDTO.getSuppliers()) {
                 suppliers.add(supplierAssembler.dto2pojo(supplierDTO));
