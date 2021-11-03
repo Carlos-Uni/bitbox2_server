@@ -62,7 +62,6 @@ public class ItemService implements IItemService{
         if (itemDTO == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The item to save is missing.");
         }
-
         itemDAO.save(itemAssembler.dto2pojo(itemDTO));
     }
 

@@ -25,22 +25,13 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
 
-        User user = userDAO.findByUsername(name);
+        User user = userDAO.findByUserName(name);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + name);
+            throw new UsernameNotFoundException("User with username: " + name + "not found");
         }
 
         return new org.springframework.security.core.userdetails.User(user.getUserName()
                 , user.getPassword(), new ArrayList<>());
-
-        /*for (com.bitbox.bitboxserver.model.User user : userDAO.findAll()) {
-            if (user.getUserName().equals(s)) {
-                return new org.springframework.security.core.userdetails.User(user.getUserName()
-                        , user.getPassword(), new ArrayList<>());
-            }
-        }
-
-        */
     }
 
     public void save(UserDTO userDTO) {
