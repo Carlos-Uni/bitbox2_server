@@ -53,26 +53,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers(HttpMethod.POST, "/api/authenticate").permitAll().and()
-                .authorizeRequests().antMatchers(HttpMethod.POST, "/api/register").permitAll().and()
-                .authorizeRequests().antMatchers("/h2/**").permitAll()
+                .authorizeRequests().antMatchers(HttpMethod.POST, "/api/authenticate", "/api/register")
+                .permitAll().and().authorizeRequests().antMatchers("/h2/**").permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        httpSecurity.headers().frameOptions().disable();
-        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-        corsConfiguration.addAllowedMethod("DELETE");
-        corsConfiguration.addAllowedMethod("POST");
-        corsConfiguration.addAllowedMethod("PUT");
-        corsConfiguration.addAllowedMethod("OPTIONS");
-        httpSecurity.cors().configurationSource(request -> corsConfiguration);
+//        httpSecurity.headers().frameOptions().disable();
+//        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+//        corsConfiguration.addAllowedMethod("DELETE");
+//        corsConfiguration.addAllowedMethod("POST");
+//        corsConfiguration.addAllowedMethod("PUT");
+//        corsConfiguration.addAllowedMethod("OPTIONS");
+//        httpSecurity.cors().configurationSource(request -> corsConfiguration);
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/authenticate");
-    }
 }

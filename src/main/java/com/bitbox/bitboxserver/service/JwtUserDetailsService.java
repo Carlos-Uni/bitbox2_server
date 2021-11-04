@@ -34,11 +34,11 @@ public class JwtUserDetailsService implements UserDetailsService {
                 , user.getPassword(), new ArrayList<>());
     }
 
-    public void save(UserDTO userDTO) {
+    public User save(UserDTO userDTO) {
         User user = userAssembler.dto2pojo(userDTO);
         String salt = BCrypt.gensalt(12);
         user.setPassword(BCrypt.hashpw(userDTO.getPassword(), salt));
-        userDAO.save(user);
+        return userDAO.save(user);
     }
 
 }

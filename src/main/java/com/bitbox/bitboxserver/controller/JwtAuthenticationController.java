@@ -29,9 +29,6 @@ public class JwtAuthenticationController {
     @Autowired
     JwtUserDetailsService userDetailsService;
 
-    @Autowired
-    UserService userService;
-
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
             throws Exception {
@@ -43,7 +40,17 @@ public class JwtAuthenticationController {
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername()));
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) throws Exception {
+        try {
+            userDetailsService.save(userDTO);
+        } catch (RuntimeException e) {
+            throw new Exception("The user (" + userDTO.getUserName() + ") already exist");
+        }
+        return ResponseEntity.ok(userDTO);
     }
 
     private void authenticate(String username, String password) throws Exception {
@@ -53,15 +60,6 @@ public class JwtAuthenticationController {
             throw new Exception("user disabled", e);
         } catch (BadCredentialsException e) {
             throw new Exception("invalid credentials", e);
-        }
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void saveUser(@RequestBody UserDTO userDTO) throws Exception {
-        try {
-            userDetailsService.save(userDTO);
-        } catch (RuntimeException e) {
-            throw new Exception("The user (" + userDTO.getUserName() + ") already exist");
         }
     }
 }
