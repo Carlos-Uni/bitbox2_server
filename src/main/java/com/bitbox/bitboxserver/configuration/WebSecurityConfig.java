@@ -59,6 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+
+        httpSecurity.cors().and().headers().frameOptions().disable();
+
 //        httpSecurity.headers().frameOptions().disable();
 //        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
 //        corsConfiguration.addAllowedMethod("DELETE");
