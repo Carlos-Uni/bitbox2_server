@@ -23,7 +23,7 @@ public class UserDTO implements Serializable {
     private String userName;
     private String password;
     private UserRoleEnum role;
-    @JsonManagedReference
+    @JsonBackReference
     private Set<ItemDTO> items;
 
     public void addItem(ItemDTO itemDTO){

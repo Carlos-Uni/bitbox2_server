@@ -9,6 +9,7 @@ import com.bitbox.bitboxserver.dao.UserDAO;
 import com.bitbox.bitboxserver.dto.DiscountDTO;
 import com.bitbox.bitboxserver.dto.ItemDTO;
 import com.bitbox.bitboxserver.dto.SupplierDTO;
+import com.bitbox.bitboxserver.dto.UserDTO;
 import com.bitbox.bitboxserver.model.Discount;
 import com.bitbox.bitboxserver.model.Item;
 import com.bitbox.bitboxserver.model.Supplier;
@@ -37,7 +38,6 @@ public class ItemService implements IItemService{
     private SupplierAssembler supplierAssembler = new SupplierAssembler();
     private DiscountAssembler discountAssembler = new DiscountAssembler();
 
-
     public List<ItemDTO> findAllItems() {
         List<ItemDTO> itemDTO = new ArrayList<>();
         for (Item item : itemDAO.findAll()) {
@@ -45,7 +45,6 @@ public class ItemService implements IItemService{
         }
         return itemDTO;
     }
-
 
     public ItemDTO findByItemCode(Long code) {
         Optional<Item> item = itemDAO.findByItemCode(code);
@@ -57,14 +56,14 @@ public class ItemService implements IItemService{
         }
     }
 
-
     public void createItem(ItemDTO itemDTO) {
         if (itemDTO == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The item to save is missing.");
         }
+        UserDTO userDTO = itemDTO.getCreator();
+        userDTO.addItem(itemDTO);
         itemDAO.save(itemAssembler.dto2pojo(itemDTO));
     }
-
 
     public void deleteItem(Long code) {
         Optional<Item> item = itemDAO.findByItemCode(code);

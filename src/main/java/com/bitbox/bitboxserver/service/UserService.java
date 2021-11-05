@@ -48,6 +48,17 @@ public class UserService implements IUserService{
         }
     }
 
+    @Override
+    public UserDTO findByUserName(String name) {
+        User user = userDAO.findByUserName(name);
+        if (user != null) {
+            return userAssembler.pojo2dto(user);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("The user '%s' does not exist", name));
+        }
+    }
+
 
     public void createUser(UserDTO userDTO) {
         if (userDTO == null) {

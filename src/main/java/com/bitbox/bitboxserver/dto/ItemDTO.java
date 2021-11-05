@@ -1,6 +1,7 @@
 package com.bitbox.bitboxserver.dto;
 
 import com.bitbox.bitboxserver.globaldata.StateItemEnum;
+import com.bitbox.bitboxserver.model.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -29,7 +30,6 @@ public class ItemDTO implements Serializable {
     private Set<DiscountDTO> discounts;
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date creationDate;
-    @JsonBackReference
     private UserDTO creator;
     private String discontinuedReason;
 

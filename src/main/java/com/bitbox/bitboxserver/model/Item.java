@@ -54,7 +54,7 @@ public class Item {
     @Column(name = "creationdate")
     private Date creationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User creator;
 
@@ -78,7 +78,6 @@ public class Item {
     }
 
     public void addDeactivationReason(String reason) {
-
         discontinuedReason = reason;
     }
 }

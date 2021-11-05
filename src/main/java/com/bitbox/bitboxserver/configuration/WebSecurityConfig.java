@@ -60,15 +60,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
-        httpSecurity.cors().and().headers().frameOptions().disable();
+        //httpSecurity.cors().and().headers().frameOptions().disable();
 
-//        httpSecurity.headers().frameOptions().disable();
-//        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-//        corsConfiguration.addAllowedMethod("DELETE");
-//        corsConfiguration.addAllowedMethod("POST");
-//        corsConfiguration.addAllowedMethod("PUT");
-//        corsConfiguration.addAllowedMethod("OPTIONS");
-//        httpSecurity.cors().configurationSource(request -> corsConfiguration);
+        httpSecurity.headers().frameOptions().disable();
+        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+        corsConfiguration.addAllowedMethod("DELETE");
+        corsConfiguration.addAllowedMethod("POST");
+        corsConfiguration.addAllowedMethod("PUT");
+        corsConfiguration.addAllowedMethod("OPTIONS");
+        httpSecurity.cors().configurationSource(request -> corsConfiguration);
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }

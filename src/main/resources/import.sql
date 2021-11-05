@@ -1,5 +1,5 @@
-insert into users(iduser, usercode, username, password, role) values(nextval('user_id_seq'),122, 'jaunadmin', HASH('SHA256', 'admin', 1000), 'ADMIN');
-insert into users(iduser, usercode, username, password, role) values(nextval('user_id_seq'),200, 'anauser', HASH('SHA256', 'user', 1000), 'USER');
+insert into users(iduser, usercode, username, password, role) values(nextval('user_id_seq'),122, 'jaunadmin', '$2a$12$AhNQQbw9exhEhEAMHqBL0eHFMvyW0d3Iw8lis96vCwz.IMYbOT2HO', 'ADMIN');
+insert into users(iduser, usercode, username, password, role) values(nextval('user_id_seq'),200, 'anauser', '$2a$12$Y.RhKcLP.q5GPGDcLv62E.oJ8qngbbQTcMZETCa0QSHVGty/zmShu', 'USER');
 insert into users(iduser, usercode, username, password, role) values(nextval('user_id_seq'),300, 'carlosuser', '$2a$12$4XM0as5NZRtVvOAmOh3ixeQ8YfzzvGBUI16Rb7H2alkpJD2ZRL1z2', 'USER');
 
 insert into item(iditem, itemcode, price, state, creationdate, description, user_id) values(nextval('item_id_seq'), 00008, 63.5, 'ACTIVE', '2015-05-10', 'The product is a mouse', currval('user_id_seq'));

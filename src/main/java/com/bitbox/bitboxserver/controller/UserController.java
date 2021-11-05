@@ -28,6 +28,12 @@ public class UserController {
         return userDTO;
     }
 
+    @GetMapping("/user/searchName/{name}")
+    public UserDTO getUserByUserNanme(@PathVariable(value = "name") String name){
+        UserDTO userDTO = userService.findByUserName(name);
+        return userDTO;
+    }
+
     @PostMapping(value = "/user/create", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public void createUser(@RequestBody UserDTO userDTO){

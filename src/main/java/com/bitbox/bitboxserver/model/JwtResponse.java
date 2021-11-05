@@ -10,5 +10,5 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class JwtResponse implements Serializable {
     private String jwttoken;
-
+    private String username;
 }
